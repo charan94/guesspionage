@@ -1,0 +1,44 @@
+{
+    "parser": "@babel/eslint-parser",
+    "env": {
+        "commonjs": true,
+        "es2021": true,
+        "node": true
+    },
+    "ignorePatterns": [
+        "**/migrations/*.ts"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "eslint"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "no-empty-function": [
+            "error",
+            {
+                "allow": [
+                    "constructors"
+                ]
+            }
+        ],
+        "no-console": "error",
+        "eslint/no-inferrable-types": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js"
+                ]
+            }
+        }
+    }
+}
