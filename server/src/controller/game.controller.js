@@ -1,15 +1,32 @@
 import { Router } from 'express';
+import { systemLogger } from '../config/logger';
+import gameService from '../service/game.service';
+import { generateResponse } from '../utils';
 
 const router = Router();
 
-router.get('/create/:userId', (request, response, next) => {
-    const userId = request.params.userId;
-    
+router.post('/create/:userId', async (request, response, next) => {
+    try {
+        const userId = request.params.userId;
+        const game = await gameService.createNewGame(userId);
+        return response.status(200).send(generateResponse(200, game))
+    } catch (err) {
+        systemLogger.error(err);
+        next(err);
+    }
 });
 
 
-router.post('/update/:gameid', (request, response, next) => {
-
+router.post('/update/:gameid', async (request, response, next) => {
+    try {
+        const gameId = request.params.gameId;
+        const { status } = request.body;
+        const game = await gameService.updateGame(gameId, status);
+        return response.status(200).send(generateResponse(200, game))
+    } catch (err) {
+        systemLogger.error(err);
+        next(err);
+    }
 });
 
 

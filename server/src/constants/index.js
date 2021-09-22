@@ -1,5 +1,5 @@
 export const GAME_LEVEL = {
-    VERY_EASY:"VERY_EASY",
+    VERY_EASY: "VERY_EASY",
     EASY: "EASY",
     NORMAL: "NORMAL",
     HARD: "HARD",
@@ -7,3 +7,9 @@ export const GAME_LEVEL = {
     IMPOSSIBLE: "IMPOSSIBLE"
 }
 
+
+export const GAME_STATUS = {
+    PENDING: "PENDING",
+    IN_PROGRESS: "IN_PROGRESS",
+    FINISHED: "FINISHED"
+}

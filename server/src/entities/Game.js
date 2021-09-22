@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import shortid from 'shortid';
+import { GAME_STATUS } from '../constants';
 
 const Schema = mongoose.Schema;
 
@@ -8,6 +9,11 @@ export const gameSchema = new Schema({
         type: String,
         default: shortid.generate,
         unique: true
+    },
+    status: {
+        type: String,
+        enum: Object.values(GAME_STATUS),
+        default: GAME_STATUS.PENDING
     },
     questions: [{
         type: Schema.Types.ObjectId,
@@ -23,8 +29,8 @@ gameSchema.index({
 
 class GameModel {
     static async create(body) {
-        const { questions = [] } = body;
-        const game = new Game({ questions });
+        const { questions = [], status } = body;
+        const game = new Game({ questions, status });
         const createdGame = await game.save();
         return createdGame;
     }
