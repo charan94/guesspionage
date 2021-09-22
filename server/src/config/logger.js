@@ -1,9 +1,9 @@
 /**
- * config.js
+ * logger.js
  *
  * Maintained by K Sai Charan
  *
- * @file config.js
+ * @file logger.js
  * @author K Sai Charan
  */
 

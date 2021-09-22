@@ -1,0 +1,33 @@
+/* Imported colors from https://visme.co/blog/website-color-schemes/ */
+
+$light: #EDF5E1;
+$lightGreen: #8EE4AF;
+$green: #5CDB95;
+$darkGreen: #379683;
+$darkBlue: #05386B;
+
+$dangerRed: #C3073F;
+$warn: #ffc251;
+$dark: #182628;
+$secondary: #474B4F;
+
+$theme-colors: (
+  "primary": $darkGreen,
+  "danger": $dangerRed,
+  "info": $darkGreen,
+  "warning": $warn,
+  "secondary": $secondary,
+  "light": $light,
+  "dark": $dark,
+  "success": $green
+);
+
+$fontFamily: 'Epilogue', sans-serif;
+
+@import "~bootstrap/scss/bootstrap";
+
+
+body {
+    background-color: $light;
+    font-family: $fontFamily;
+}

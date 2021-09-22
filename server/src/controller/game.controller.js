@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/find/next/:userId', (request, response, next) => {
+router.get('/generate/next/:userId', (request, response, next) => {
 
 });
 

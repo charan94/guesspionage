@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import userController from '../controller/user.controller';
-import resultsController from '../controller/results.controller';
+import questionController from '../controller/question.controller';
 import gameController from '../controller/game.controller';
 
 const router = Router();
 
 router.use('/user', userController);
 
-router.use('/results', resultsController);
+router.use('/question', questionController);
 
 router.use('/game', gameController);
 
