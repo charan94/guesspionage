@@ -7,7 +7,8 @@ const Schema = mongoose.Schema;
 export const questionSchema = new Schema({
     questionId: {
         type: String,
-        default: shortid.generate
+        default: shortid.generate,
+        unique: true
     },
     level: {
         type: String,
@@ -33,5 +34,25 @@ questionSchema.index({
     unique: true
 });
 
+class QuestionModel {
+    static async create(body) {
+        const { level, question, answer = "", score = 0 } = body;
+        const quesTion = new Question({ level, question, answer, score });
+        const createdQuestion = await quesTion.save();
+        return createdQuestion;
+    }
 
-export const Game = mongoose.model("Game", questionSchema);
+    async update(body) {
+        this.level = !(body.level === undefined || body.level === null) ? body.level : this.level;
+        this.question = !(body.question === undefined || body.question === null) ? body.question : this.question;
+        this.answer = !(body.answer === undefined || body.answer === null) ? body.answer : this.answer;
+        this.score = !(body.score === undefined || body.score === null) ? body.score : this.score;
+    }
+}
+
+questionSchema.loadClass(QuestionModel);
+
+
+export const Question = mongoose.model("Question", questionSchema);
+
+Question.ensureIndexes();

@@ -8,16 +8,33 @@ export default {
         const user = await User.findOne({ userName });
         return { available: !user }
     },
-    async createUser() {
-
+    async createUser(body) {
+        await connectMongo();
+        const user = await User.create(body);
+        return { user };
     },
-    async findUser() {
-
+    async findUser(userId) {
+        await connectMongo();
+        const user = await User.findOne({ userId });
+        if (!user) {
+            throw { status: 400, message: `User not found with id ${userId}` }
+        }
+        return user;
     },
-    async findUserStats() {
-
+    async updateUser(userId, body) {
+        await connectMongo();
+        const user = await User.findOneAndUpdate({ userId }, body, { new: true });
+        if (!user) {
+            throw { status: 400, message: `Cannot update user with id - ${userId}. Reason: User not found...` };
+        }
+        return user;
     },
-    async findAllUserStats() {
-
+    async findUserStats(userId) {
+        await connectMongo();
+        const user = await User.findOne({ userId }).populate({ path: 'games', populate: { path: 'questions' } });
+        if (!user) {
+            throw { status: 400, message: `User not found with id ${userId}` };
+        }
+        return user;
     }
 }

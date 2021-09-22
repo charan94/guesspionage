@@ -1,9 +1,6 @@
-export const generateResponse = (statusCode = 400, message = null, data = null) => {
+export const generateResponse = (statusCode = 400, data = null) => {
     return {
         statusCode,
-        body: JSON.stringify({
-            message,
-            data
-        })
+        data
     }
 }

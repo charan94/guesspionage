@@ -2,12 +2,13 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.get('/generate/next/:userId', (request, response, next) => {
-
+router.get('/create/:userId', (request, response, next) => {
+    const userId = request.params.userId;
+    
 });
 
 
-router.post('/update/:userId', (request, response, next) => {
+router.post('/update/:gameid', (request, response, next) => {
 
 });
 
