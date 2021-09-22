@@ -24,5 +24,13 @@ export default {
             throw { status: 400, message: "Game not found!" };
         }
         return game;
+    },
+    async findGame(gameId) {
+        await connectMongo();
+        const game = await Game.findOne({ gameId }).populate({ path: 'questions' });
+        if (!game) {
+            throw { status: 400, message: 'Game not found' }
+        }
+        return game;
     }
 }

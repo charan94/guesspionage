@@ -1,14 +1,5 @@
 import mongoose from 'mongoose';
 
-// handling exceptions.
-process.on('uncaughtException', (err) => {
-    console.log(`uncaughtException occurred: ${err}`);
-})
-
-process.on('unhandledRejection', (err) => { 
-    console.log(`unhandledRejection occurred: ${err}`);
-});
-
 // mongodb connect.
 
 export const connectMongo = async () => {

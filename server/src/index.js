@@ -5,6 +5,15 @@ import router from './routes';
 import errorMiddleware from './middlewares/error.middleware';
 import { systemLogger } from './config/logger';
 
+// handling exceptions.
+process.on('uncaughtException', (err) => {
+    systemLogger.error(`uncaughtException occurred: ${err}`);
+})
+
+process.on('unhandledRejection', (err) => {
+    systemLogger.error(`unhandledRejection occurred: ${err}`);
+});
+
 config();
 
 const app = express();
