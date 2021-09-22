@@ -9,7 +9,6 @@ export const GAME_LEVEL = {
 
 
 export const GAME_STATUS = {
-    PENDING: "PENDING",
     IN_PROGRESS: "IN_PROGRESS",
     FINISHED: "FINISHED"
 }

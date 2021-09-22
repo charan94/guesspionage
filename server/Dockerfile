@@ -14,5 +14,5 @@ RUN chmod +x /app/wait-for-it.sh
 
 EXPOSE 8081
 
-CMD ["/app/wait-for-it.sh", "db:27017", "-t", "120", "--", "npm", "start"]
+CMD ["/app/wait-for-it.sh", "db:27017", "-t", "120", "--", "npm", "run", "docker:run"]
 

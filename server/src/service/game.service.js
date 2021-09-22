@@ -27,7 +27,7 @@ export default {
     },
     async findGame(gameId) {
         await connectMongo();
-        const game = await Game.findOne({ gameId }).populate({ path: 'questions' });
+        const game = await Game.findOne({ gameId }, 'gameId status questions').populate({ path: 'questions', select: 'questionId level question answer score' });
         if (!game) {
             throw { status: 400, message: 'Game not found' }
         }

@@ -13,7 +13,7 @@ export const gameSchema = new Schema({
     status: {
         type: String,
         enum: Object.values(GAME_STATUS),
-        default: GAME_STATUS.PENDING
+        default: GAME_STATUS.IN_PROGRESS
     },
     questions: [{
         type: Schema.Types.ObjectId,

@@ -31,7 +31,7 @@ export default {
     },
     async findUserStats(userId) {
         await connectMongo();
-        const user = await User.findOne({ userId }).populate({ path: 'games', populate: { path: 'questions' } });
+        const user = await User.findOne({ userId }, 'userId userName games').populate({ path: 'games', select: 'gameId status questions', populate: { path: 'questions', select: 'questionId level question answer score' } });
         if (!user) {
             throw { status: 400, message: `User not found with id ${userId}` };
         }
