@@ -6,7 +6,6 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel src -d dist",
-    "postinstall": "npm run build",
     "docker:run": "node dist/index.js"
   },
   "author": "K SAI CHARAN",

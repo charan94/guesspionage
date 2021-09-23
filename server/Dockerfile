@@ -8,6 +8,10 @@ COPY package-lock.json .
 
 RUN npm install
 
+COPY . .
+
+RUN npm run build
+
 COPY wait-for-it.sh .
 
 RUN chmod +x /app/wait-for-it.sh
