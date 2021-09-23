@@ -1,5 +1,32 @@
 version: '3.9'
 services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    volumes:
+      - ./server/src:/app/src
+    environment:
+      PROJECT_NAME: 'Guesspionage'
+      PORT: 8081
+      DB_CONN_STR: 'mongodb://db:27017/guesspionage?readPreference=primary&ssl=false'
+    depends_on:
+      - db
+  client:
+    build:
+      context: ./client
+    ports:
+      - '8080:8080'
+    environment:
+      NODE_ENV: 'production'
+      VUE_APP_API_URL: 'http://localhost:8081/api'
+    volumes:
+      - ./client/src:/app/src
+    stdin_open: true
+    depends_on:
+      - server
   db:
     image: mongo:4.4.4-bionic
     environment:
