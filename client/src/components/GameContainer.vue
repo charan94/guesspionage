@@ -45,7 +45,6 @@ export default {
         }
     },
     mounted() {
-        console.log('currentLevel ', this.currentLevel);
         if (this.settings && this.currentLevel) {
             this.generateQuestion();
         }

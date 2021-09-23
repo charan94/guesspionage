@@ -10,6 +10,10 @@ export default {
     },
     async createUser(body) {
         await connectMongo();
+        const existingUser = await User.findOne({ userName: body.userName });
+        if (existingUser) {
+            return { user: existingUser }
+        }
         const user = await User.create(body);
         return { user };
     },

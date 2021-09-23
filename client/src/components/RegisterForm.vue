@@ -3,7 +3,7 @@
     <form id="registerForm" @submit.prevent="onSubmit">
         <div class="form-group mb-2">
             <label for="userName" class="form-label">Select UserName</label>
-            <input type="text" id="userName" class="form-control" v-model="userName" @keyup="onKeyUp" />
+            <input type="text" id="userName" class="form-control" v-model="userName" />
             <div class="form-text text-danger" v-if="v$.$dirty && v$.userName.required.$invalid">
                 UserName is required
             </div>

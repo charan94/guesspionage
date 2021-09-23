@@ -23,5 +23,5 @@ export const loadGameAPI = (gameId) => {
 
 export const updateGameStatusAPI = (gameId, status) => {
     const url = `${BASE_API_URL}/game/update/${gameId}`;
-    return apiCall({ url, method: API_METHODS.POST, body: { status } })
+    return apiCall({ url, method: API_METHODS.POST, body: JSON.stringify({ status }) })
 }

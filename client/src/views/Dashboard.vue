@@ -54,18 +54,13 @@ export default {
             const currentGame = this.dashboard.currentGame;
             const currentLevel = this.dashboard.currentLevel;
             const threshold = this.dashboard.settings.threshold;
-            const {difficulty: currentDifficultyLevel} = this.dashboard.settings.settings[currentLevel];
-            const totalCount = currentGame.questions.length ? [...currentGame.questions.filter(({level}) => level === currentLevel), {...props}].length : 0;
+            const {difficulty: currentDifficultyLevel, count} = this.dashboard.settings.settings[currentLevel];
+            const totalCount = currentGame.questions.length ? [...currentGame.questions.filter(({level}) => level === currentLevel), {...props}].length : 1;
             const totalScore = currentGame.questions.length ? [...currentGame.questions.filter(({level}) => level === currentLevel).map(({score}) => score), ...[props.score]].reduce((a, b) => a + b)  : 0;
-            
-            if(totalCount > 0) {
-                console.log('totalCount ', totalCount);
-                console.log('totalScore ', totalScore);
+            if(totalCount > count) {
                 const successPercentage = (totalScore/totalCount) * 100;
-                console.log('successPercentage ', successPercentage);
                 if(successPercentage >= threshold) {
                     const difficultyLevel = currentDifficultyLevel + 1;
-                    console.log('difficultyLevel ', difficultyLevel);
                     if(difficultyLevel === 7) {
                          this.updateGameStatusAction({gameId: currentGame.gameId, status: 'FINISHED'});
                          this.$router.push('results');
@@ -78,7 +73,6 @@ export default {
                               newLevel = keys[i];
                           }
                     }
-                    console.log('newLevel ', newLevel);
                     if(newLevel) {
                        await this.updateDifficultyLevelAction(newLevel);
                     }
