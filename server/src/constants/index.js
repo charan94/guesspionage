@@ -16,27 +16,33 @@ export const GAME_STATUS = {
 export const GAME_SETTINGS = {
     [GAME_LEVEL.VERY_EASY]: {
         max: 99,
-        time: 5000
+        time: 5,
+        difficulty: 1
     },
     [GAME_LEVEL.EASY]: {
         max: 999,
-        time: 5000
+        time: 5,
+        difficulty: 2
     },
     [GAME_LEVEL.NORMAL]: {
         max: 9999,
-        time: 4000
+        time: 4,
+        difficulty: 3
     },
     [GAME_LEVEL.HARD]: {
         max: 999999,
-        time: 4000
+        time: 4,
+        difficulty: 4
     },
     [GAME_LEVEL.VERY_HARD]: {
         max: 99999999,
-        time: 3000
+        time: 3,
+        difficulty: 5
     },
     [GAME_LEVEL.IMPOSSIBLE]: {
         max: 999999999999,
-        time: 2500
+        time: 3,
+        difficulty: 6
     }
 }
 

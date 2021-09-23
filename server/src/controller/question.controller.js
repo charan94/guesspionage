@@ -4,6 +4,7 @@ import { generateResponse } from '../utils';
 import questionService from '../service/question.service';
 import { validateRequest } from '../middlewares/validation.middleware';
 import { questionValidator } from '../validators/question.validator';
+import { matchedData } from 'express-validator';
 
 const router = Router();
 

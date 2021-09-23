@@ -5,6 +5,7 @@ import gameService from '../service/game.service';
 import { generateResponse } from '../utils';
 import { gameValidator } from '../validators/game.validator';
 import { validateRequest } from '../middlewares/validation.middleware';
+import { matchedData } from 'express-validator';
 
 const router = Router();
 
@@ -49,7 +50,7 @@ router.post(
 
 
 router.post(
-    '/update/:gameid',
+    '/update/:gameId',
     gameValidator.updateGame,
     [validateRequest],
     async (request, response, next) => {
