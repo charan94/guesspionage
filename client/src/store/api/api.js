@@ -4,8 +4,10 @@ export const BASE_API_URL = process.env.VUE_APP_API_URL || "http://localhost:808
 export const apiCall = async ({
     url,
     method,
-    body = {},
-    headers = {}
+    body = null,
+    headers = {
+        'Content-Type': 'application/json'
+    }
 }) => {
 
     const config = {
