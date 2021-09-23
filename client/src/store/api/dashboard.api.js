@@ -10,3 +10,13 @@ export const loadSettingsAPI = () => {
     const url = `${BASE_API_URL}/game/settings`;
     return apiCall({ url, method: API_METHODS.GET });
 }
+
+export const createQuestionAPI = (gameId, body) => {
+    const url = `${BASE_API_URL}/question/create/${gameId}`;
+    return apiCall({ url, method: API_METHODS.POST, body });
+}
+
+export const loadGameAPI = (gameId) => {
+    const url = `${BASE_API_URL}/game/info/${gameId}`;
+    return apiCall({url, method: API_METHODS.GET});
+}

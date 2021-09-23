@@ -1,4 +1,4 @@
-import { createGameAPI, loadSettingsAPI } from "../api/dashboard.api"
+import { createGameAPI, createQuestionAPI, loadGameAPI, loadSettingsAPI } from "../api/dashboard.api"
 
 export default {
     state: {
@@ -6,7 +6,8 @@ export default {
         loading: false,
         errors: [],
         currentGame: null,
-        settings: null
+        settings: null,
+        currentLevel: 'VERY_EASY',
     },
     getters: {
 
@@ -17,8 +18,8 @@ export default {
                 localStorage.setItem('currentGame', JSON.stringify(payload.game));
                 state.currentGame = payload.game;
             } else {
-                localStorage.setItem('games', JSON.stringify(payload.game));
-                payload.games = [...payload.games, payload.game];
+                localStorage.setItem('games', JSON.stringify([...state.games, payload.game]));
+                state.games = [...state.games, payload.game];
             }
         },
         updateLoading(state, payload) {
@@ -41,22 +42,35 @@ export default {
         fetchGameFromLocal({ commit }) {
             commit('updateLoading', true);
             const currentGame = localStorage.getItem('currentGame');
-            commit('updateGame', JSON.parse(currentGame));
+            commit('updateGame', { game: JSON.parse(currentGame), new: true });
             commit('updateLoading', false);
         },
 
-        async loadSettingsAPI({ commit }, isLocal = false) {
+        async loadSettingsAction({ commit }, isLocal = false) {
             commit('updateLoading', true);
             if (isLocal) {
                 const result = await loadSettingsAPI();
                 if (result && result.statusCode === 200) {
-                    localStorage.setItem('settings', result.data);
+                    localStorage.setItem('settings', JSON.stringify(result.data));
                     commit('updateSettings', result.data);
                 }
             } else {
                 commit('updateSettings', JSON.parse(localStorage.getItem('settings')));
             }
-
+            commit('updateLoading', false);
+        },
+        async loadGameAction({ commit }, gameId) {
+            commit('updateLoading', true);
+            const result = await loadGameAPI(gameId);
+            if (result && result.statusCode === 200) {
+                commit('updateGame', { game: result.data, new: true });
+            }
+            commit('updateLoading', false);
+        },
+        async updateQuestionAction({ commit, dispatch, state }, body) {
+            commit('updateLoading', true);
+            await createQuestionAPI(state.currentGame.gameId, JSON.stringify(body));
+            dispatch('loadGameAction', state.currentGame.gameId);
         }
     }
 }
