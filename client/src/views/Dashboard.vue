@@ -38,10 +38,10 @@ export default {
         this.loadSettingsAction(settings ? false : true);
     },
     mounted() {
-
+          
     },
     methods: {
-        ...mapActions(['createGameAction', 'fetchGameFromLocal', 'loadSettingsAction', 'updateQuestionAction']),
+        ...mapActions(['createGameAction', 'fetchGameFromLocal', 'loadSettingsAction', 'updateQuestionAction', 'updateDifficultyLevelAction', 'updateGameStatusAction']),
         createGame() {
             const userId = this.user?.user?.userId;
             if (userId) {
@@ -50,7 +50,40 @@ export default {
                 this.$router.push('register');
             }
         },
-        updateQuestion(props) {
+        async updateQuestion(props) {
+            const currentGame = this.dashboard.currentGame;
+            const currentLevel = this.dashboard.currentLevel;
+            const threshold = this.dashboard.settings.threshold;
+            const {difficulty: currentDifficultyLevel} = this.dashboard.settings.settings[currentLevel];
+            const totalCount = currentGame.questions.length ? [...currentGame.questions.filter(({level}) => level === currentLevel), {...props}].length : 0;
+            const totalScore = currentGame.questions.length ? [...currentGame.questions.filter(({level}) => level === currentLevel).map(({score}) => score), ...[props.score]].reduce((a, b) => a + b)  : 0;
+            
+            if(totalCount > 0) {
+                console.log('totalCount ', totalCount);
+                console.log('totalScore ', totalScore);
+                const successPercentage = (totalScore/totalCount) * 100;
+                console.log('successPercentage ', successPercentage);
+                if(successPercentage >= threshold) {
+                    const difficultyLevel = currentDifficultyLevel + 1;
+                    console.log('difficultyLevel ', difficultyLevel);
+                    if(difficultyLevel === 7) {
+                         this.updateGameStatusAction({gameId: currentGame.gameId, status: 'FINISHED'});
+                         this.$router.push('results');
+                         return;
+                    }
+                    const keys = Object.keys(this.dashboard.settings.settings);
+                    let newLevel = null;
+                    for(let i = 0; i < keys.length; i ++) {
+                          if(this.dashboard.settings.settings[keys[i]].difficulty === difficultyLevel) {
+                              newLevel = keys[i];
+                          }
+                    }
+                    console.log('newLevel ', newLevel);
+                    if(newLevel) {
+                       await this.updateDifficultyLevelAction(newLevel);
+                    }
+                }
+            }
            this.updateQuestionAction(props);
         }
     },

@@ -45,6 +45,7 @@ export default {
         }
     },
     mounted() {
+        console.log('currentLevel ', this.currentLevel);
         if (this.settings && this.currentLevel) {
             this.generateQuestion();
         }
@@ -56,7 +57,7 @@ export default {
         generateQuestion() {
             const {
                 max,
-                time
+                time,
             } = this.settings.settings[`${this.currentLevel}`];
             const number = generateRandomNumber(max);
             this.isTimerRunning = true;

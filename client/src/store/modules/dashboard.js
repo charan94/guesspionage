@@ -1,4 +1,4 @@
-import { createGameAPI, createQuestionAPI, loadGameAPI, loadSettingsAPI } from "../api/dashboard.api"
+import { createGameAPI, createQuestionAPI, loadGameAPI, loadSettingsAPI, updateGameStatusAPI } from "../api/dashboard.api"
 
 export default {
     state: {
@@ -27,6 +27,9 @@ export default {
         },
         updateSettings(state, payload) {
             state.settings = payload;
+        },
+        updateDifficultyLevel(state, payload) {
+            state.currentLevel = payload;
         }
     },
     actions: {
@@ -71,6 +74,14 @@ export default {
             commit('updateLoading', true);
             await createQuestionAPI(state.currentGame.gameId, JSON.stringify(body));
             dispatch('loadGameAction', state.currentGame.gameId);
+        },
+        async updateGameStatusAction({commit, dispatch}, {gameId, status}) {
+            commit('updateLoading', true);
+            await updateGameStatusAPI(gameId, status);
+            dispatch('loadGameAction', gameId);
+        },
+        updateDifficultyLevelAction({ commit }, level) {
+           commit('updateDifficultyLevel', level);
         }
     }
 }

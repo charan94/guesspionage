@@ -18,5 +18,10 @@ export const createQuestionAPI = (gameId, body) => {
 
 export const loadGameAPI = (gameId) => {
     const url = `${BASE_API_URL}/game/info/${gameId}`;
-    return apiCall({url, method: API_METHODS.GET});
+    return apiCall({ url, method: API_METHODS.GET });
+}
+
+export const updateGameStatusAPI = (gameId, status) => {
+    const url = `${BASE_API_URL}/game/update/${gameId}`;
+    return apiCall({ url, method: API_METHODS.POST, body: { status } })
 }
