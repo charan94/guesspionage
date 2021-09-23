@@ -63,7 +63,7 @@ export default {
                     const difficultyLevel = currentDifficultyLevel + 1;
                     if(difficultyLevel === 7) {
                          this.updateGameStatusAction({gameId: currentGame.gameId, status: 'FINISHED'});
-                         this.$router.push('results');
+                         this.$router.push({name: 'results', params: {gameId: currentGame.gameId}});
                          return;
                     }
                     const keys = Object.keys(this.dashboard.settings.settings);

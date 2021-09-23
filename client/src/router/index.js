@@ -16,7 +16,7 @@ const routes = [
     component: () => import('../views/Dashboard.vue')
   },
   {
-    path: '/results',
+    path: '/results/:gameId',
     name: 'results',
     component: () => import('../views/Results.vue')
   },
